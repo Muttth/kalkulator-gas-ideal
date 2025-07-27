@@ -177,3 +177,6 @@ elif menu == "👥 Tentang Kami":
    - Ismi Aziz(2460393)
    - Mutia Ningrum (2460444)
    - Savira Putri Pramudita (2460514)
+   Terima kasih telah menggunakan aplikasi kami 🙏  
+Jangan biarkan tekanan gas menambah tekanan batin 🤖💨
+""")  # 
