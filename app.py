@@ -1,100 +1,213 @@
 import streamlit as st
 import base64
 
-# ===== Fungsi untuk ubah gambar ke base64 =====
+# === Fungsi untuk mengubah gambar jadi base64 ===
 def get_base64(file_path):
-    with open(file_path, "rb") as image_file:
-        return base64.b64encode(image_file.read()).decode()
+    with open(file_path, "rb") as img_file:
+        return base64.b64encode(img_file.read()).decode()
 
-# ===== Fungsi untuk set background lucu =====
-def set_background(jpg_file):
-    bin_str = get_base64(jpg_file)
-    page_bg_img = f"""
+# === Fungsi untuk menyetel background dari file gambar ===
+def set_background(image_path):
+    encoded = get_base64(image_path)
+    css = f"""
     <style>
     .stApp {{
-      background-image: url("data:image/jpg;base64,{bin_str}");
-      background-size: cover;
-      background-position: center;
-      background-attachment: fixed;
+        background-image: url("data:image/jpg;base64,{encoded}");
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-attachment: fixed;
     }}
     </style>
     """
-    st.markdown(page_bg_img, unsafe_allow_html=True)
+    st.markdown(css, unsafe_allow_html=True)
 
-# Panggil fungsi background
-set_background("background.jpg")
+# Setel background dari gambar lucu yang kamu upload
+set_background("Biru Pink Ilustrasi Cute Latar Belakang Cerita Instagram.jpg")
 
-# ===== Judul Aplikasi =====
-st.markdown("<h1 style='text-align: center; color: navy;'>🧪 Kalkulator Gas Ideal</h1>", unsafe_allow_html=True)
+import streamlit as st
 
-# ===== Penjelasan Hukum Gas =====
-with st.expander("📘 Penjelasan Hukum Gas Ideal"):
-    st.markdown("""
-    **Gas Ideal** mengikuti persamaan:
-    
-    \n\n### `PV = nRT`
-    
-    Dimana:
-    - `P` = Tekanan (atm)
-    - `V` = Volume (L)
-    - `n` = Mol zat (mol)
-    - `R` = Konstanta gas = 0.0821 L·atm/mol·K
-    - `T` = Suhu mutlak (K)
+# ================================
+# 🎨 Background & Tema
+# ================================
+st.markdown(
+    """
+    <style>
+    .stApp {
+        background-image: url('https://media.giphy.com/media/l3vR85PnGsBwu1PFK/giphy.gif');
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-attachment: fixed;
+    }
 
-    ---
-    ### 📏 Hukum-Hukum Gas:
-    - **Hukum Boyle**: Jika T konstan, maka `P1V1 = P2V2`
-    - **Hukum Charles**: Jika P konstan, maka `V1/T1 = V2/T2`
-    - **Hukum Gay-Lussac**: Jika V konstan, maka `P1/T1 = P2/T2`
+    .block-container {
+        background-color: rgba(255, 255, 255, 0.88);
+        padding: 2rem;
+        border-radius: 15px;
+        box-shadow: 0 0 10px rgba(0,0,0,0.2);
+    }
+
+    h1, h2, h3, h4, h5, h6, p, label, .markdown-text-container {
+        color: #004d40;
+    }
+    </style>
+    """,
+    unsafe_allow_html=True
+)
+
+# ================================
+# ⚙️ Konfigurasi Halaman
+# ================================
+st.set_page_config(page_title="Kalkulator Gas Ideal", page_icon="🧪", layout="centered")
+
+# ================================
+# 📂 Sidebar Navigasi
+# ================================
+menu = st.sidebar.selectbox("📂 Pilih Halaman", ["🏠 Home", "📊 Dashboard", "🧮 Kalkulator Gas Ideal", "👥 Tentang Kami"])
+
+# ================================
+# 🏠 HOME
+# ================================
+if menu == "🏠 Home":
+    st.title("🧪 Aplikasi Kalkulator Gas Ideal")
+    st.markdown(r"""
+    ## Persamaan Gas Ideal
+    \[
+    PV = nRT
+    \]
+
+    **Keterangan:**
+    - P : Tekanan (atm)  
+    - V : Volume (L)  
+    - n : Jumlah mol  
+    - R : 0.0821 L·atm/mol·K  
+    - T : Suhu (K)
+
+    Aplikasi ini membantu menghitung salah satu variabel jika tiga lainnya diketahui.
     """)
 
-# ===== Kalkulator Gas Ideal =====
-st.subheader("🔍 Hitung Variabel Gas Ideal")
+# ================================
+# 📊 DASHBOARD
+# ================================
+elif menu == "📊 Dashboard":
+    st.title("📚 Penjelasan Gas Ideal")
+    st.markdown(r"""
+    ## 🌬 Apa itu Gas Ideal?
 
-option = st.selectbox("Pilih variabel yang ingin dicari:", ["Tekanan (P)", "Volume (V)", "Mol (n)", "Suhu (T)"])
+    Gas ideal adalah model teoretis dari gas yang mengikuti persamaan *PV = nRT*, di mana:
+    - Partikel gas dianggap tidak memiliki volume
+    - Tidak ada gaya tarik-menarik antar partikel
+    - Semua tumbukan antar partikel bersifat lenting sempurna
 
-R = 0.0821
+    ---
 
-if option == "Tekanan (P)":
-    V = st.number_input("Volume (L)", min_value=0.0, format="%.2f")
-    n = st.number_input("Jumlah Mol (mol)", min_value=0.0, format="%.2f")
-    T = st.number_input("Suhu (K)", min_value=0.0, format="%.2f")
-    if st.button("Hitung Tekanan"):
-        if V > 0:
-            P = (n * R * T) / V
-            st.success(f"Tekanan (P) = {P:.2f} atm")
+    ## 📏 Hukum-Hukum dalam Gas Ideal
+
+    **1. Hukum Boyle**  
+    Volume ∝ 1/Tekanan (suhu tetap)  
+    \[
+    P_1V_1 = P_2V_2
+    \]
+
+    **2. Hukum Charles**  
+    Volume ∝ Suhu (tekanan tetap)  
+    \[
+    \frac{V_1}{T_1} = \frac{V_2}{T_2}
+    \]
+
+    **3. Hukum Gay-Lussac**  
+    Tekanan ∝ Suhu (volume tetap)  
+    \[
+    \frac{P_1}{T_1} = \frac{P_2}{T_2}
+    \]
+
+    ---
+
+    ## ⚛ Sifat-Sifat Gas Ideal
+
+    1. Partikel bergerak acak
+    2. Tidak ada gaya tarik menarik
+    3. Volume partikel diabaikan
+    4. Distribusi merata
+    5. Tumbukan lenting sempurna
+    6. Energi kinetik ∝ suhu
+
+    🔍 Catatan: Tidak ada gas yang 100% ideal, tapi model ini sangat berguna!
+    """)
+
+# ================================
+# 🧮 KALKULATOR GAS IDEAL
+# ================================
+elif menu == "🧮 Kalkulator Gas Ideal":
+    st.title("🧮 Kalkulator Gas Ideal")
+    st.markdown("Masukkan *3 variabel*, dan **kosongkan 1 variabel** dengan angka **0**.")
+
+    P = st.number_input("Tekanan (P) dalam atm", value=0.0)
+    V = st.number_input("Volume (V) dalam liter", value=0.0)
+    n = st.number_input("Jumlah mol (n)", value=0.0)
+    T = st.number_input("Suhu (T) dalam Kelvin", value=0.0)
+    R = 0.0821
+
+    if st.button("🔍 Tampilkan Proses Perhitungan"):
+        kosong = sum([P == 0, V == 0, n == 0, T == 0])
+
+        if kosong != 1:
+            st.error("❗ Harap isi *3 variabel* dan kosongkan hanya *1 variabel* dengan angka 0.")
         else:
-            st.error("Volume tidak boleh nol!")
+            with st.spinner("Menghitung..."):
+                st.subheader("📘 Langkah-Langkah Perhitungan")
+                st.latex("PV = nRT")
 
-elif option == "Volume (V)":
-    P = st.number_input("Tekanan (atm)", min_value=0.0, format="%.2f")
-    n = st.number_input("Jumlah Mol (mol)", min_value=0.0, format="%.2f")
-    T = st.number_input("Suhu (K)", min_value=0.0, format="%.2f")
-    if st.button("Hitung Volume"):
-        if P > 0:
-            V = (n * R * T) / P
-            st.success(f"Volume (V) = {V:.2f} L")
-        else:
-            st.error("Tekanan tidak boleh nol!")
+                if P == 0:
+                    st.write(f"Diketahui: n = {n} mol, T = {T} K, V = {V} L, R = {R}")
+                    st.latex("P = \\frac{nRT}{V}")
+                    hasil = (n * R * T) / V
+                    st.success(f"✅ Tekanan (P) = {hasil:.3f} atm")
 
-elif option == "Mol (n)":
-    P = st.number_input("Tekanan (atm)", min_value=0.0, format="%.2f")
-    V = st.number_input("Volume (L)", min_value=0.0, format="%.2f")
-    T = st.number_input("Suhu (K)", min_value=0.0, format="%.2f")
-    if st.button("Hitung Mol"):
-        if T > 0:
-            n = (P * V) / (R * T)
-            st.success(f"Mol (n) = {n:.2f} mol")
-        else:
-            st.error("Suhu tidak boleh nol!")
+                elif V == 0:
+                    st.write(f"Diketahui: n = {n} mol, T = {T} K, P = {P} atm, R = {R}")
+                    st.latex("V = \\frac{nRT}{P}")
+                    hasil = (n * R * T) / P
+                    st.success(f"✅ Volume (V) = {hasil:.3f} L")
 
-elif option == "Suhu (T)":
-    P = st.number_input("Tekanan (atm)", min_value=0.0, format="%.2f")
-    V = st.number_input("Volume (L)", min_value=0.0, format="%.2f")
-    n = st.number_input("Jumlah Mol (mol)", min_value=0.0, format="%.2f")
-    if st.button("Hitung Suhu"):
-        if n > 0:
-            T = (P * V) / (n * R)
-            st.success(f"Suhu (T) = {T:.2f} K")
-        else:
-            st.error("Mol tidak boleh nol!")
+                elif n == 0:
+                    st.write(f"Diketahui: P = {P} atm, T = {T} K, V = {V} L, R = {R}")
+                    st.latex("n = \\frac{PV}{RT}")
+                    hasil = (P * V) / (R * T)
+                    st.success(f"✅ Jumlah mol (n) = {hasil:.3f} mol")
+
+                elif T == 0:
+                    st.write(f"Diketahui: P = {P} atm, V = {V} L, n = {n} mol, R = {R}")
+                    st.latex("T = \\frac{PV}{nR}")
+                    hasil = (P * V) / (n * R)
+                    st.success(f"✅ Suhu (T) = {hasil:.3f} K")
+
+# ================================
+# 👥 TENTANG KAMI
+# ================================
+elif menu == "👥 Tentang Kami":
+    st.title("👥 Tentang Kami")
+    st.markdown("""
+    ### Tim Pengembang Aplikasi Kalkulator Gas Ideal
+
+    Selamat datang di **PV-nRTin Aja!** 💻🧪
+
+    Sebuah platform kalkulator gas ideal yang dibuat untuk mahasiswa, pelajar, atau pejuang tugas akhir—yang sering berkutat dengan rumus legendaris PV = nRT 😵‍💫
+
+    Nama "PV-nRTin Aja" kami pilih bukan cuma biar catchy, tapi juga sebagai ajakan:
+    💬 *nggak usah ribet, tinggal masukin data... terus PV-nRTin Aja!* 🚀
+
+    Kami ingin bantu kamu belajar konsep gas ideal dengan cara yang lebih praktis dan menyenangkan 🎯
+
+    Karena hidup udah cukup berat...
+    📌 Jangan biarkan tekanan gas ikut bikin tekanan batin 🤖💨
+
+    **Anggota Kelompok:**
+    - Azka Afriyuni Suwito (2360084)
+    - Dhelys Kusuma Wardani (2460356)
+    - Ismi Aziz (2460393)
+    - Mutia Ningrum (2460444)
+    - Savira Putri Pramudita (2460514)
+    """)
+
+
