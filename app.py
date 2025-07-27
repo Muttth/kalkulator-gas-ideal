@@ -12,7 +12,7 @@ def set_background(image_path):
     css = f"""
     <style>
     .stApp {{
-        background-image: url("data:image/jpg;base64,{encoded}");
+        background-image: url("data:image/jpg;base64");
         background-size: cover;
         background-position: center;
         background-repeat: no-repeat;
@@ -23,9 +23,8 @@ def set_background(image_path):
     st.markdown(css, unsafe_allow_html=True)
 
 # Setel background dari gambar lucu yang kamu upload
-set_background("Biru Pink Ilustrasi Cute Latar Belakang Cerita Instagram.jpg")
+set_background(")
 
-import streamlit as st
 
 # ================================
 # 🎨 Background & Tema
