@@ -28,6 +28,51 @@ st.markdown(
     """,
     unsafe_allow_html=True
 )
+st.markdown(
+    """
+    <style>
+    .stApp {
+        background: radial-gradient(circle at 10% 20%, #A8E6CF 0%, #DCEDC1 100%);
+        overflow: hidden;
+        position: relative;
+    }
+
+    .stApp::before {
+        content: "";
+        position: absolute;
+        top: -50%;
+        left: -50%;
+        width: 200%;
+        height: 200%;
+        background-image: radial-gradient(circle, rgba(255, 255, 255, 0.1) 20%, transparent 70%),
+                          radial-gradient(circle, rgba(255, 255, 255, 0.1) 20%, transparent 70%);
+        background-size: 50% 50%;
+        animation: moveClouds 30s linear infinite;
+        z-index: -1;
+    }
+
+    @keyframes moveClouds {
+        0% { transform: translate(0%, 0%); }
+        50% { transform: translate(25%, 25%); }
+        100% { transform: translate(0%, 0%); }
+    }
+
+    .block-container {
+        background-color: rgba(255, 255, 255, 0.9);
+        padding: 2rem;
+        border-radius: 15px;
+        box-shadow: 0 0 10px rgba(0,0,0,0.2);
+        position: relative;
+        z-index: 1;
+    }
+
+    h1, h2, h3, h4, h5, h6, p, label, .markdown-text-container {
+        color: #004d40;
+    }
+    </style>
+    """,
+    unsafe_allow_html=True
+)
 
 # ================================
 # ⚙️ Konfigurasi Halaman
@@ -78,23 +123,23 @@ elif menu == "📊 Dashboard":
     ## 📏 Hukum-Hukum dalam Gas Ideal
 
     **1. Hukum Boyle**  
-    Volume ∝ 1/Tekanan (suhu tetap)  
-    \[
-    P_1V_1 = P_2V_2
-    \]
+    Pada suhu tetap, volume berbanding terbalik dengan tekanan.  
+    PV = Konstan
+    
+    P1.V1 = P2.V2
+    
+    *2. Hukum Charles*  
+    Pada tekanan tetap, volume berbanding lurus dengan suhu.  
+      VT = Konstan
+      
+      V1/T1 = V2/T2
 
-    **2. Hukum Charles**  
-    Volume ∝ Suhu (tekanan tetap)  
-    \[
-    \frac{V_1}{T_1} = \frac{V_2}{T_2}
-    \]
-
-    **3. Hukum Gay-Lussac**  
-    Tekanan ∝ Suhu (volume tetap)  
-    \[
-    \frac{P_1}{T_1} = \frac{P_2}{T_2}
-    \]
-
+    *3. Hukum Gay-Lussac*  
+    Pada volume tetap, tekanan berbanding lurus dengan suhu.  
+      P/T = Konstan
+      
+      (P1/T1 = P2/T2)
+      
     ---
 
     ## ⚛ Sifat-Sifat Gas Ideal
