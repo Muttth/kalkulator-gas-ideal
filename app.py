@@ -1,13 +1,13 @@
 import streamlit as st
 
 # ================================
-# 🎨 Background dengan GIF Bergerak
+# 🎨 Background 
 # ================================
 st.markdown(
     """
     <style>
     .stApp {
-        background-image: url("https://media.giphy.com/media/ICOgUNjpvO0PC/giphy.gif");
+        background-image: url("https://media.giphy.com/media/xT9DPnwi5o2rfUukz6/giphy.gif");
         background-size: cover;
         background-attachment: fixed;
     }
