@@ -7,7 +7,7 @@ st.markdown(
     """
     <style>
     .stApp {
-        background-image: url("https://media.giphy.com/media/YQitE4YNQNahy/giphy.gif");
+        background-image: url("https://images.app.goo.gl/bbB5WwtmX7PcR7uf6");
         background-size: cover;
         background-attachment: fixed;
     }
