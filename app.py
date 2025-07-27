@@ -7,7 +7,7 @@ st.markdown(
     """
     <style>
     .stApp {
-        background-image: url("https://www.canva.com/templates/EAGUJkNjyJY/");
+        background-image: url(""background.jpg");
         background-size: cover;
         background-attachment: fixed;
     }
